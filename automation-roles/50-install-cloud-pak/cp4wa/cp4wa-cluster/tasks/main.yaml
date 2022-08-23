@@ -71,10 +71,10 @@
    _use_case_files: True
   when: (current_cp4wa_cluster.image_registry_name | default("")) != "" or (current_cp4wa_cluster.use_case_files | default(False) | bool)
 
-# TODO implement versions beyond v3.3
-- name: Fail if not v3.3 installation
-  fail: msg="Installation of versions other than v3.3 are not yet implemented"
-  when: (current_cp4wa_cluster.cp4wa_version | default("v3.3")) != "v3.3"
+- name: Warn if not v3.3 or v3.4 installation
+  fail: msg="Installation of versions other than v3.3 or v3.4 have not been tested"
+  when: (current_cp4wa_cluster.cp4wa_version | default("v3.3")) != "v3.3" and (current_cp4wa_cluster.cp4wa_version | default("v3.4")) != "v3.4"
+  ignore_errors: True
 
 - name: Remove Cloud Pak for Watson AIOps directory for generated files
   file:

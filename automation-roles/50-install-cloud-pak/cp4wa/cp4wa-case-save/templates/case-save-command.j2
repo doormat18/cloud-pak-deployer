@@ -1,5 +1,5 @@
 cloudctl case save \
     --repo {{ case_github_url }} \
     --case {{ case_name }} \
-    --version {{ case_version }} \
+    --version {{ current_cp4wa_cluster.case_version }} \
     --outputdir {{ _case_dir }}

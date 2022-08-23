@@ -32,7 +32,7 @@ import sys, os
 #cp4wa:
 #- project: cp4waiops
 #  openshift_cluster_name: sample
-#  cp4wa_version: v3.3
+#  cp4wa_version: v3.4
 #  use_case_files: True
 #  accept_licenses: False
 
@@ -52,6 +52,7 @@ def preprocessor(attributes=None, fullConfig=None):
     g('cp4wa_version').isRequired()
     g('openshift_storage_name').expandWithSub('openshift', remoteIdentifier='name', remoteValue=openshift_cluster_name, listName='openshift_storage',listIdentifier='storage_name')
     g('use_case_files').isOptional()
+    g('case_version').isOptional()
     g('accept_licenses').isOptional()
 
     # Now that we have reached this point, we can check the attribute details if the previous checks passed
@@ -69,6 +70,14 @@ def preprocessor(attributes=None, fullConfig=None):
             if not accept_licenses:
                 if not str_to_bool(os.environ.get('CPD_ACCEPT_LICENSES')):
                     g.appendError(msg="You must accept licenses by specifying accept_licenses: True or by using the --accept-all-licenses command line flag")
+
+        # Check that case_version is present if use_case_files is true
+        if 'use_case_files' in ge:
+            use_case_files=ge['use_case_files']
+        else:
+            use_case_files=False
+        if use_case_files and 'case_version' not in ge:
+            g.appendError(msg="If using case files, case_version must be specified")
 
 # Check reference
 # - Retrieve the openshift element with name=openshift_cluster_name
