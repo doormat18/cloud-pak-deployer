@@ -1,5 +1,8 @@
 ---
 
+# ------------ VERIFICATION -----------------------------------------
+# TODO verify that instance size is not changing for an existing instance
+
 # ------------ PREPARE AND APPLY YAML -------------------------------
 
 - name: Prepare yaml file for instance
@@ -28,14 +31,14 @@
   vars:
     condition_query: 'resources[*].status.phase'
 
-- name: Wait 20 minutes for CP4WA BaseUI to be Ready
+- name: Wait 30 minutes for CP4WA BaseUI to be Ready
   community.kubernetes.k8s_info:
     api_version: consoleui.aiops.ibm.com/v1
     kind: BaseUI
     namespace: "{{ current_cp4wa_cluster.project }}"
     name: baseui-instance
   register: baseui
-  retries: 40
+  retries: 60
   delay: 30
   until: (['True'] in baseui | json_query(condition_query) | unique )
   vars:

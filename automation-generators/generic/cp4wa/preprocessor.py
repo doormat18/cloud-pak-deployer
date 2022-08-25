@@ -50,6 +50,7 @@ def preprocessor(attributes=None, fullConfig=None):
     g('openshift_cluster_name').expandWith('openshift[*]',remoteIdentifier='name')
     openshift_cluster_name=g('openshift_cluster_name').getExpandedAttributes()['openshift_cluster_name']
     g('cp4wa_version').isRequired()
+    g('size').isRequired()
     g('openshift_storage_name').expandWithSub('openshift', remoteIdentifier='name', remoteValue=openshift_cluster_name, listName='openshift_storage',listIdentifier='storage_name')
     g('use_case_files').isOptional()
     g('case_version').isOptional()
@@ -78,6 +79,10 @@ def preprocessor(attributes=None, fullConfig=None):
             use_case_files=False
         if use_case_files and 'case_version' not in ge:
             g.appendError(msg="If using case files, case_version must be specified")
+
+        # Check if size is either small or large
+        if ge['size'] not in ['small', 'large']:
+            g.appendError(msg="CP4WA install size not supported. CP4WA install sizes are small, large")
 
 # Check reference
 # - Retrieve the openshift element with name=openshift_cluster_name
