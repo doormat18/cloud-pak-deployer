@@ -1,0 +1,15 @@
+---
+- name: Download cp4waiops samples repository
+  include_tasks: samples-download.yml
+
+# TODO get version of install
+# - name: Get version
+
+# TODO run prereq check for proper version of install
+- name: Run prereq checker
+  shell: |
+    {{ status_dir }}/downloads/cp4waiops-samples/prereq-checker/3.4/prereq.sh
+  register: prereq_output
+# TODO force colors in output
+- debug: 
+    msg: "{{ prereq_output.stdout_lines }}"

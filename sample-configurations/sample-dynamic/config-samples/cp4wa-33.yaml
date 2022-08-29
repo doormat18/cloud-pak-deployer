@@ -2,7 +2,7 @@
 cp4wa:
 
 - project: cp4waiops
-  openshift_cluster_name: {{ env_id }}
+  openshift_cluster_name: "{{ env_id }}"
   cp4wa_version: v3.3
   # size: small or large
   size: small

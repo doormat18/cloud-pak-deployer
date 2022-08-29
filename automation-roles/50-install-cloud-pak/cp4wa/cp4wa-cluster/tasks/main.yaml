@@ -149,7 +149,10 @@
 - name: Install AI Manager operator
   include_tasks: install-operator.yml
 
-# TODO run prereq checker
+# TODO make prereq check optional
+- name: Run prerequisite checker script
+  include_role: 
+    name: prereq-check
 
 # ------------ INSTALL CP4WA instance -------------------------------
 

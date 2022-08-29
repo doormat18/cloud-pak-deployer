@@ -1,3 +1,5 @@
+---
+
 - name: Show current CP4WA cluster
   debug:
     msg: Current CP4WA cluster is {{ current_cp4wa_cluster }}
@@ -57,10 +59,10 @@
     ocp_storage_class_block: "{{ selected_openshift_storage.ocp_storage_class_block }}"
   when: selected_openshift_storage.storage_type == 'custom'
 
-Portworx storage classes vary according to cartridge, so are set in the relevant CR templates
+# Portworx storage classes vary according to cartridge, so are set in the relevant CR templates
 - set_fact:
-   ocp_storage_class_file: "{{ selected_openshift_storage.ocp_storage_class_file | default('portworx-shared-gp3') }}"
-   ocp_storage_class_block: "{{ selected_openshift_storage.ocp_storage_class_block | default('portworx-gp3-sc') }}"
+    ocp_storage_class_file: "{{ selected_openshift_storage.ocp_storage_class_file | default('portworx-shared-gp3') }}"
+    ocp_storage_class_block: "{{ selected_openshift_storage.ocp_storage_class_block | default('portworx-gp3-sc') }}"
   when: selected_openshift_storage.storage_type == 'pwx'
 
 - name: Check if file storage class {{ ocp_storage_class_file }} exists in OpenShift

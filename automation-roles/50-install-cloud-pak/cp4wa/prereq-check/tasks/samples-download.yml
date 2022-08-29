@@ -1,0 +1,12 @@
+---
+- name: Create downloads directory
+  file:
+    path: "{{ status_dir }}/downloads/cp4waiops-samples"
+    state: directory
+
+- name: Clone samples repo
+  git:
+    repo: https://github.com/IBM/cp4waiops-samples.git
+    dest: "{{ status_dir }}/downloads/cp4waiops-samples"
+    clone: yes
+    update: yes
