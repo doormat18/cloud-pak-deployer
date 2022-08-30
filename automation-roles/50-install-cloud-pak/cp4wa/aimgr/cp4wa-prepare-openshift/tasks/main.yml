@@ -10,7 +10,7 @@
 
 - name: Make a temporary work folder available
   tempfile:
-    path: "{{status_dir}}/cp4wa"
+    path: "{{status_dir}}/cp4wa/aimgr"
     state: directory
   register: cloud_pak_prepare_ocp_temp_dir
 

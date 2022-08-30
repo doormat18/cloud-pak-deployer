@@ -29,12 +29,14 @@ import sys, os
 # Validating:
 # ---
 
-#cp4wa:
-#- project: cp4waiops
-#  openshift_cluster_name: sample
-#  cp4wa_version: v3.4
-#  use_case_files: True
-#  accept_licenses: False
+# cp4wa_aimgr:
+# - project: cp4waiops
+#   openshift_cluster_name: "{{ env_id }}"
+#   cp4wa_version: v3.4
+#   size: small
+#   use_case_files: True
+#   case_version: 1.3.1
+#   accept_licenses: False
 
 def str_to_bool(s):
     if s == None:

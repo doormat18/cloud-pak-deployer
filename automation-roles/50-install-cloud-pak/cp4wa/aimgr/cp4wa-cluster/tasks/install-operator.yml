@@ -5,10 +5,10 @@
 - name: Prepare yaml file for CP4WA operator subscription
   template:
     src: cp4wa-operator-subscription.j2
-    dest: "{{ status_dir }}/cp4wa/cp4wa-operator-subscription.yml"
+    dest: "{{ status_dir }}/cp4wa/aimgr/cp4wa-operator-subscription.yml"
   
 - name: Display CP4WA operator yaml contents
-  command: cat "{{ status_dir }}/cp4wa/cp4wa-operator-subscription.yml"
+  command: cat "{{ status_dir }}/cp4wa/aimgr/cp4wa-operator-subscription.yml"
   register: cp4wa_operator_sub_yaml
 
 - name: Debug CP4WA operator yaml
@@ -17,7 +17,7 @@
 
 - name: Create subscription for CP4WA operator
   command: |
-    oc apply -f "{{ status_dir }}/cp4wa/cp4wa-operator-subscription.yml"
+    oc apply -f "{{ status_dir }}/cp4wa/aimgr/cp4wa-operator-subscription.yml"
 
 - name: Wait for CP4WA Orchestrator operator to appear
   community.kubernetes.k8s_info:

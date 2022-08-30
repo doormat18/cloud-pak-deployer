@@ -1,5 +1,5 @@
 ---
-cp4wa:
+cp4wa_aimgr:
 
 - project: cp4waiops
   openshift_cluster_name: "{{ env_id }}"

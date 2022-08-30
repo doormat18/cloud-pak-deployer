@@ -1,6 +1,6 @@
 ---
 - set_fact:
-    _case_dir: "{{ status_dir }}/cp4wa/case"
+    _case_dir: "{{ status_dir }}/cp4wa/aimgr/case"
 
 # Install catalog
 - name: Compose cloudctl install-catalog command for case file

@@ -8,14 +8,14 @@
 - name: Prepare yaml file for instance
   template:
     src: cp4wa-instance.j2
-    dest: "{{ status_dir }}/cp4wa/cp4wa-instance.yml"
+    dest: "{{ status_dir }}/cp4wa/aimgr/cp4wa-instance.yml"
 
-- name: Install CP4WA instance from {{ status_dir }}/cp4wa/cp4wa-instance.yml
+- name: Install CP4WA instance from {{ status_dir }}/cp4wa/aimgr/cp4wa-instance.yml
   community.kubernetes.k8s:
     state: present
     force: False
     merge_type: merge
-    src: "{{ status_dir }}/cp4wa/cp4wa-instance.yml"
+    src: "{{ status_dir }}/cp4wa/aimgr/cp4wa-instance.yml"
 
 # TODO Put waits in block and repeat 2-3 times
 - name: Wait 10 minutes for CP4WA installation to be in state 'Running'
