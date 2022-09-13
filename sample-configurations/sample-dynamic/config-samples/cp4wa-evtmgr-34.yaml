@@ -1,0 +1,13 @@
+---
+cp4wa_evtmgr:
+
+- project: cp4waiops-evtmgr
+  openshift_cluster_name: "{{ env_id }}"
+  cp4wa_version: v3.4
+  # size: small or large
+  size: small
+  use_case_files: True
+  case_version: 1.3.1
+  # In openshift config, you must set cloudctl_version: v3.17.0 for successful 
+  # Event Manager install
+  accept_licenses: False

@@ -16,6 +16,11 @@
 - name: Download and install cloudctl
   include_role:
     name: cloudctl-download
+  # vars:
+  #   _p_cloudctl_version: "{{ _current_openshift_cluster.cloudctl_version }} | default([])"
+  loop: "{{ all_config.openshift | default([]) }}"
+  loop_control:
+    loop_var: _current_openshift_cluster
 
 - name: Download OpenShift client
   include_role:

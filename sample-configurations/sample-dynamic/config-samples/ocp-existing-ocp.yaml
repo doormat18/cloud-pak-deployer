@@ -6,6 +6,8 @@ global_config:
 openshift:
 - name: "{{ env_id }}"
   ocp_version: 4.8
+  # Optional parameter to specify cloudctl version to use
+  # cloudctl_version: v3.17.0
   cluster_name: "{{ env_id }}"
   domain_name: example.com
   openshift_storage:

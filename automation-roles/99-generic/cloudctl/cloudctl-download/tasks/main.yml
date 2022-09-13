@@ -11,17 +11,30 @@
 
 - block:
 
-  - name: Get current version number of clouctl
-    uri:
-      url: https://api.github.com/repos/IBM/cloud-pak-cli/releases/latest
-      return_content: yes
-      method: GET
-      status_code: 200
-    register: _cloudctl_version
+  # if no cloudctl version is specified in config, get the latest version
+  - block:
+
+    - name: Get current version number of cloudctl
+      uri:
+        url: https://api.github.com/repos/IBM/cloud-pak-cli/releases/latest
+        return_content: yes
+        method: GET
+        status_code: 200
+      register: _cloudctl_version
+
+    - name: Set tag_name to version number
+      set_fact:
+        _p_cloudctl_version: "{{ _cloudctl_version.json.tag_name }}"
+    when: _current_openshift_cluster.cloudctl_version is not defined
+
+  - name: Set cloudctl version from configuration
+    set_fact:
+      _p_cloudctl_version: "{{ _current_openshift_cluster.cloudctl_version }}"
+    when: _current_openshift_cluster.cloudctl_version is defined
 
   - name: Download cloudctl tool
     get_url:
-      url: "https://github.com/IBM/cloud-pak-cli/releases/download/{{ _cloudctl_version.json.tag_name }}/cloudctl-linux-amd64.tar.gz"
+      url: "https://github.com/IBM/cloud-pak-cli/releases/download/{{ _p_cloudctl_version }}/cloudctl-linux-amd64.tar.gz"
       dest: "{{ status_dir }}/downloads/cloudctl-linux-amd64.tar.gz"
       owner: root
       mode: 0644

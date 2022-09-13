@@ -34,9 +34,16 @@
   - debug:
       var: all_config
       
-  - name: Install Cloud Pak for Watson AIOps
+  - name: Install Cloud Pak for Watson AIOps - AI Manager
     include_role:
       name: cp4wa-cluster
     loop: "{{ all_config.cp4wa_aimgr | default([]) }}"
     loop_control:
       loop_var: current_cp4wa_cluster
+
+  - name: Install Cloud Pak for Watson AIOps - Event Manager
+    include_role:
+      name: cp4wa-evtmgr-cluster
+    loop: "{{ all_config.cp4wa_evtmgr | default([]) }}"
+    loop_control:
+      loop_var: current_cp4wa_cluster      
